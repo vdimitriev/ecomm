@@ -1,0 +1,10 @@
+server:
+  port: 8085
+
+spring:
+  graphql:
+    graphiql:
+      enabled: true
+      path: /graphiql
+  profiles:
+    active: local
