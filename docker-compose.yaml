@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  app:
+    image: 'docker-spring-boot-postgres:latest'
+    build:
+      context: .
+    container_name: app
+    depends_on:
+      - db
+    environment:
+      - POSTGRES_USER=ecomm
+      - POSTGRES_PASSWORD=ecomm
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/ecomm
+      - SPRING_DATASOURCE_USERNAME=ecomm
+      - SPRING_DATASOURCE_PASSWORD=ecomm
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=none
+
+    ports:
+      - "8085:8080"
+
+  db:
+    image: postgres
+    container_name: db
+    environment:
+      - POSTGRES_USER=ecomm
+      - POSTGRES_PASSWORD=ecomm
+      - POSTGRES_DB=ecomm
+    ports:
+      - "5432:5432"
