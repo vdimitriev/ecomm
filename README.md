@@ -23,4 +23,11 @@ then open the browser to http://localhost:4000, and write some queries. There ar
 - Integration tests
 - Functional tests
 - Authentication & Authorization
+- Move the project to gitlab (as I am more familier with gitlab-ci then github actions)
+- Create CI/CD pipeline, which will build the project, create docker images and add the images to docker registry.
+- Use the docker registry from gitlab in docker-compose
+- Create kubernetes cluster in AWS on GCP or some other cloud provider
+- Create helm charts
+- Deploy the charts to kubernetes cluster ideally using terraform
+
 
