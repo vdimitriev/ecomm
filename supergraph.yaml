@@ -1,0 +1,9 @@
+subgraphs:
+  products:
+    routing_url: http://ecomm-products:8081/graphql
+    schema:
+      file: ./ecomm-products/src/main/resources/graphql/schema.graphqls
+  images:
+    routing_url: http://ecomm-images:8082/graphql
+    schema:
+      file: ./ecomm-images/src/main/resources/graphql/schema.graphqls

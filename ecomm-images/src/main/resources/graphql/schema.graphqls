@@ -1,0 +1,14 @@
+schema{
+    query:Query
+}
+
+type Query{
+    getAllImages:[Image]
+}
+
+type Image{
+    id:ID
+    imageId:String
+    url:String
+    priority:Int
+}

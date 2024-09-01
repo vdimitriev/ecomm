@@ -1,0 +1,41 @@
+schema{
+    mutation:Mutation
+    query:Query
+}
+
+type Query{
+    getAllProducts:[Product]
+}
+
+type Mutation{
+    createProduct(product:ProductInput):Product
+    addProductImages(productId:String,images:[ImageInput]):[Image]
+}
+
+# Input types
+input ProductInput{
+    name:String
+    price:String
+    status:String
+    images:[ImageInput]
+}
+
+input ImageInput{
+    url:String
+}
+
+type Product{
+    id:ID
+    productId:String
+    name:String
+    price:String
+    status:String
+    images:[Image]
+}
+
+type Image{
+    id:ID
+    imageId:String
+    url:String
+    priority:Int
+}
