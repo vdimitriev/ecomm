@@ -49,8 +49,12 @@ input ProductInput {
 }
 
 type Query {
-  getAllImages: [Image] @join__field(graph: IMAGES)
-  getAllProducts: [Product] @join__field(graph: PRODUCTS)
+  getImageByImageId(imageId: String):Image @join__field(graph: IMAGES)
+  getAllImages:[Image] @join__field(graph: IMAGES)
+  getAllImagesByProductId(productId: String):[Image] @join__field(graph: IMAGES)
+  getAllProducts:[Product] @join__field(graph: PRODUCTS)
+  feedProducts(filter: String, skip: Int, take: Int): [Product] @join__field(graph: PRODUCTS)
+  getProductByProductId(productId:String):Product @join__field(graph: PRODUCTS)
 }
 
 enum core__Purpose {

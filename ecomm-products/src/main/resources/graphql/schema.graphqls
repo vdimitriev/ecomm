@@ -5,6 +5,8 @@ schema{
 
 type Query{
     getAllProducts:[Product]
+    feedProducts(filter: String, skip: Int, take: Int): [Product]
+    getProductByProductId(productId:String):Product
 }
 
 type Mutation{

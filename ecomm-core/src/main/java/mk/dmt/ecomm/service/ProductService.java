@@ -12,6 +12,7 @@ import mk.dmt.ecomm.entity.ProductEntity;
 import mk.dmt.ecomm.exception.ResourceNotFoundException;
 import mk.dmt.ecomm.repository.ImageRepository;
 import mk.dmt.ecomm.repository.ProductRepository;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -59,5 +60,14 @@ public class ProductService{
     public ProductDto getById(Long id) {
         ProductEntity productEntity = productRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Product with id '" + id + "'  not found"));
         return productDtoConverter.convert(productEntity);
+    }
+
+    public ProductDto getProductByProductId(String productId) {
+        ProductEntity productEntity = productRepository.findByProductId(productId).orElseThrow(() -> new ResourceNotFoundException("Product with product id '" + productId + "'  not found"));
+        return productDtoConverter.convert(productEntity);
+    }
+
+    public List<ProductDto> getAllProductsByFilterUsingPagination(String filter, Integer skip, Integer take) {
+        return productRepository.findByNameContaining(filter, PageRequest.of(skip, take)).stream().map(productDtoConverter::convert).toList();
     }
 }

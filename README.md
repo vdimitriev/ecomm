@@ -1,21 +1,26 @@
-## Ecomm application
+## Ecomm web application
 
-Created with Spring Boot and GraphQL. 
+The application have been build as multimodule spring boot application, of which there are two web modules, 
+ecomm-products and ecomm-images, as part of federation managed by apollo. 
 
-It can be run using docker-compose:
+ecomm-products acts as a main module as it contains flyway scripts for creating the database.
+Both modules use the ecomm-core, which contains all the entities, dtos, repositories and services.
+ecomm-products and ecomm-images only have controllers. 
+
+
+
+
+### The application can be run using docker-compose.
 
 > docker-compose up
 
-then open the browser to http://localhost:8085/graphiql 
-
-The application exposes two endpoints, /product and /image. 
-
-/product has some implementation, one can create product and list all the products
-/image is not yet implemented.
+then open the browser to http://localhost:4000, and write some queries. There are sample queries in sample.graphql.
 
 
-rover dev --name ecomm-products --schema ./ecomm-products/src/main/resources/graphql/schema.graphqls --url http://localhost:8081/graphql
-rover dev --name ecomm-images --schema ./ecomm-images/src/main/resources/graphql/schema.graphqls --url http://localhost:8082/graphql
+### Further improvements
 
-rover supergraph compose --config ./supergraph.yaml > supergraph.graphql
+- Unit tests
+- Integration tests
+- Functional tests
+- Authentication & Authorization
 

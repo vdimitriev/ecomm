@@ -24,7 +24,16 @@ public class ImageService {
         return imageDtoConverter.convert(imageEntity);
     }
 
+    public ImageDto getByImageId(String imageId) {
+        ImageEntity imageEntity = imageRepository.findByImageId(imageId).orElseThrow(() -> new ResourceNotFoundException("Image with image id '" + imageId + "'  not found"));
+        return imageDtoConverter.convert(imageEntity);
+    }
+
     public List<ImageDto> getAllImages() {
         return imageRepository.findAll().stream().map(imageDtoConverter::convert).toList();
+    }
+
+    public List<ImageDto> getAllImagesByProductId(String productId) {
+        return imageRepository.findAllByProductId(productId).stream().map(imageDtoConverter::convert).toList();
     }
 }

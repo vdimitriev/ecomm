@@ -20,12 +20,17 @@ public class ImageController {
     private final ImageService imageService;
 
     @QueryMapping
-    public ImageDto image(@Argument Long id) {
-        return imageService.getById(id);
+    public ImageDto getImageByImageId(@Argument String imageId) {
+        return imageService.getByImageId(imageId);
     }
 
     @QueryMapping
-    public List<ImageDto> products() {
+    public List<ImageDto> getAllImages() {
         return imageService.getAllImages();
+    }
+
+    @QueryMapping
+    public List<ImageDto> getAllImagesByProductId(@Argument String productId) {
+        return imageService.getAllImagesByProductId(productId);
     }
 }

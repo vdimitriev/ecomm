@@ -1,0 +1,70 @@
+query Query {
+    getAllProducts {
+        productId
+        name
+        price
+        status
+        images {
+            imageId
+            url
+            priority
+        }
+    },
+
+    getProductByProductId(productId: "6f50d34d-756b-4c0f-9a7e-74a66d562b3b") {
+        productId
+        name
+        price
+        status
+        images {
+            imageId
+            url
+            priority
+        }
+    },
+
+    feedProducts(filter: "Coff", skip: 0, take: 10) {
+        productId
+        name
+        price
+        status
+        images {
+            imageId
+            url
+            priority
+        }
+    },
+
+    getAllImages {
+        imageId
+        url
+        priority
+    },
+
+    getAllImagesByProductId(productId: "6f50d34d-756b-4c0f-9a7e-74a66d562b3b") {
+        imageId
+        url
+        priority
+    }
+}
+
+mutation CreateProduct {
+    createProduct(product: {
+        name: "Coffee"
+        price: "300"
+        status: "active"
+        images: [{
+            url: "https://images.unsplash.com/photo-1615789591457-74a63395c990?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80"
+        }]
+    }) {
+        productId
+        name
+        price
+        status
+        images {
+            imageId
+            url
+            priority
+        }
+    }
+}

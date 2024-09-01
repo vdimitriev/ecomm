@@ -14,8 +14,7 @@ services:
 
   ecomm-products:
     container_name: ecomm-products
-    build:
-      context: ecomm-products/
+    image: dmtmk/ecomm-products:latest
     depends_on:
       - ecomm-db
     environment:
@@ -30,8 +29,7 @@ services:
 
   ecomm-images:
     container_name: ecomm-images
-    build:
-      context: ecomm-images/
+    image: dmtmk/ecomm-images:latest
     depends_on:
       - ecomm-db
       - ecomm-products

@@ -3,7 +3,9 @@ schema{
 }
 
 type Query{
+    getImageByImageId(imageId: String):Image
     getAllImages:[Image]
+    getAllImagesByProductId(productId: String):[Image]
 }
 
 type Image{

@@ -24,6 +24,16 @@ public class ProductController {
         return productService.getAllProducts();
     }
 
+    @QueryMapping
+    public List<ProductDto> feedProducts(@Argument String filter, @Argument Integer skip, @Argument Integer take) {
+        return productService.getAllProductsByFilterUsingPagination(filter, skip, take);
+    }
+
+    @QueryMapping
+    public ProductDto getProductByProductId(@Argument String productId) {
+        return productService.getProductByProductId(productId);
+    }
+
     @MutationMapping
     public ProductDto createProduct(@Argument(value = "product") ProductDto productDto) {
         return productService.addProduct(productDto);
