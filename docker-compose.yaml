@@ -1,30 +1,63 @@
 version: '3.8'
 
 services:
-  app:
-    image: 'docker-spring-boot-postgres:latest'
-    build:
-      context: .
-    container_name: app
-    depends_on:
-      - db
-    environment:
-      - POSTGRES_USER=ecomm
-      - POSTGRES_PASSWORD=ecomm
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/ecomm
-      - SPRING_DATASOURCE_USERNAME=ecomm
-      - SPRING_DATASOURCE_PASSWORD=ecomm
-      - SPRING_JPA_HIBERNATE_DDL_AUTO=none
 
-    ports:
-      - "8085:8080"
-
-  db:
+  ecomm-db:
     image: postgres
-    container_name: db
+    container_name: ecomm-db
     environment:
       - POSTGRES_USER=ecomm
       - POSTGRES_PASSWORD=ecomm
       - POSTGRES_DB=ecomm
     ports:
       - "5432:5432"
+
+  ecomm-products:
+    container_name: ecomm-products
+    build:
+      context: ecomm-products/
+    depends_on:
+      - ecomm-db
+    environment:
+      - POSTGRES_USER=ecomm
+      - POSTGRES_PASSWORD=ecomm
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://ecomm-db:5432/ecomm
+      - SPRING_DATASOURCE_USERNAME=ecomm
+      - SPRING_DATASOURCE_PASSWORD=ecomm
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=none
+    ports:
+      - "8081:8081"
+
+  ecomm-images:
+    container_name: ecomm-images
+    build:
+      context: ecomm-images/
+    depends_on:
+      - ecomm-db
+      - ecomm-products
+    environment:
+      - POSTGRES_USER=ecomm
+      - POSTGRES_PASSWORD=ecomm
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://ecomm-db:5432/ecomm
+      - SPRING_DATASOURCE_USERNAME=ecomm
+      - SPRING_DATASOURCE_PASSWORD=ecomm
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=none
+    ports:
+      - "8082:8082"
+
+  ecomm-router:
+    image: ghcr.io/apollographql/router:v1.52.0
+    container_name: ecomm-router
+    environment:
+      - APOLLO_SCHEMA_CONFIG_EMBEDDED=true
+    volumes:
+      - ./router.yaml:/dist/config/router.yaml
+      - ./supergraph.graphql:/dist/schema/supergraph.graphql
+    ports:
+      - 4000:4000
+    command: [ "--dev", "-c", "config/router.yaml", "-s", "schema/supergraph.graphql", "--log", "info" ]
+    depends_on:
+      - ecomm-db
+      - ecomm-products
+      - ecomm-images
+
