@@ -1,7 +1,7 @@
 ## Ecomm web application
 
-The application have been build as multimodule spring boot application, of which there are two web modules, 
-ecomm-products and ecomm-images, as part of federation managed by apollo. 
+The application have been build as multimodule spring boot application, there are two web modules, 
+ecomm-products and ecomm-images, as part of federation managed by apollo. Both of the modules use GraphQL to expose apis.  
 
 ecomm-products acts as a main module as it contains flyway scripts for creating the database.
 Both modules use the ecomm-core, which contains all the entities, dtos, repositories and services.
